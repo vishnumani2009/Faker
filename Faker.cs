@@ -7,6 +7,8 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Linq;
+using System.Collections.Generic;
+
 	public class Faker
 	{
 
@@ -196,12 +198,31 @@ using System.Linq;
 		{
 			return streetaddress()+"\n"+city()+","+state()+zipcode();
 		}
+		public List<E> ShuffleList<E>(List<E> inputList)
+		{
+			List<E> randomList = new List<E>();
+
+			Random r = new Random();
+			int randomIndex = 0;
+			while (inputList.Count > 0)
+			{
+				randomIndex = r.Next(0, inputList.Count); //Choose a random object in the list
+				randomList.Add(inputList[randomIndex]); //add it to the new, random list
+				inputList.RemoveAt(randomIndex); //remove to avoid duplicates
+			}
+
+			return randomList; //return the new random list
+		}
 		public void lorem()
 		{
 			//string[] paragraph
-			string[] wordlist= WORDS.Split(' ');
-			string[] shuffle = RandomStringArrayTool.RandomizeStrings (wordlist);
-			Console.WriteLine (wordlist [1]);
+			Console.WriteLine ("_________________________________");
+			List<string>new1= WORDS.Split(' ').ToList();
+			Console.WriteLine (new1 [2]);
+			List<string> new2 = ShuffleList (new1);
+			Console.WriteLine (new2 [2]);
+			string result=new2.ToString ();
+			Console.WriteLine(String.Join (" ", new2));
 		}
 
 	}
